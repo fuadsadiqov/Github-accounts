@@ -21,8 +21,11 @@ html, body, #root{
   justify-content: center;
   flex-direction: column;
 }
-.App .form form{
-  display: flex;
+.App .form, form{
+  display: flex;  
+}
+.App .logo{
+  margin-bottom: 10px;
 }
 .App .form input{
   background-color: #FFF;
@@ -41,6 +44,11 @@ html, body, #root{
   align-items: center;
   justify-content: center;
   color: #6979F8;
+  cursor: pointer;
+}
+.App .form button:hover{
+  background-color: #6979F8;
+  color: #FFF;
 }
 .Output{
   max-width: 600px;
@@ -95,6 +103,11 @@ html, body, #root{
   padding: 15px 25px;
   display: flex;
   justify-content: space-between;
+}
+.App .notFound{
+  font-size: 19px;
+  font-weight: 800;
+  padding: 15px 0;
 }
 @media (max-width: 768px){
   .App .form form{
