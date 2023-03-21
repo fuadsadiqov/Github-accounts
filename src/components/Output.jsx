@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CiShare1 } from 'react-icons/ci'
 
-export default function Output({data}) {
+export default function Output({data, dark}) {
     const [repos, setRepos] = useState(null)  
     const [slicedText, setSlicedText] = useState('')
 
@@ -31,8 +31,8 @@ export default function Output({data}) {
           </div>
         {data.public_repos !== 0 && <div className="repos">
           <ul>
-          {repos.map((repo, index) => {
-              return <li key={index}>{index + 1}. {repo.name}<a href={repo.clone_url}><CiShare1 color='black' /></a></li>    
+          {repos && repos.map((repo, index) => {
+              return <li key={index}>{index + 1}. {repo.name}<a href={repo.clone_url}><CiShare1 color={dark ? 'white' : 'black'} /></a></li>    
             })}
           </ul>
         </div>}

@@ -1,28 +1,28 @@
 import { useState } from "react";
+import { MdOutlineNightlightRound } from 'react-icons/md'
+import { BsSun } from 'react-icons/bs'
 import Output from './components/Output'
+import Form from "./components/Form";
 
 function App() {
 
   const [user, setUser] = useState('')
   const [data, setData] = useState(false)
-  const handleChange = (e) => {
-    e.preventDefault()
-    fetch("https://api.github.com/users/" + user)
-    .then(res => res.json())
-    .then(data => setData(data))
-    console.log(data);
+  const [dark, setDark] = useState(false)
+
+  const toggleMode = () => {
+    setDark(!dark)
   }
+  
   return (
-    <div className="App">
-          <img width="50" class="logo" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="" />
-        <div className="form">
-          <form onSubmit={(e) => handleChange(e)}>
-            <input placeholder="Write github username" required value={user} onChange={e => setUser(e.target.value)} type="text" />
-            <button type="submit">Search</button>
-          </form>
-        </div>
-        {!data.message && <Output data={data}/>}
+    <div className={!dark ? "App" : "App dark"}>
+        <Form dark={dark} user={user} setData={setData} setUser={setUser} data={data}/>
+        {!data.message && <Output dark={dark} data={data}/>}
         {data.message && <p className="notFound">Not found any accounts</p>}
+        <div className="mode">
+          <MdOutlineNightlightRound fontSize={'25px'} color={dark && "white"} className="modeIcon" style={!dark && {display: 'none'}} onClick={toggleMode} />
+          <BsSun fontSize={'25px'} className="modeIcon" style={dark && {display: 'none'}} onClick={toggleMode}/>
+        </div>
     </div>
  );
 }
