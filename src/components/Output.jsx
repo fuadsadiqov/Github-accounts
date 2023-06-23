@@ -24,7 +24,7 @@ export default function Output({data, dark}) {
        {data && <div className='Output'>
         <div className="head">
           <div className='output-img'>{data !== null && <img width={100} src={data.avatar_url} alt="" />}</div>
-            <div style={{fontSize: '18px', fontWeight: '700' }}>@{data !== null && data.login }</div>
+            <div style={{fontSize: '18px', fontWeight: '700' }}><a href={data.html_url}>@{data !== null && data.login }</a></div>
             <div>Creating time: {data !== null && slicedText }</div>
             <div>Location: {data !== null && data.location } {data.location === null && "Not found"}</div>
             <div style={{display: 'flex', gap: '10px'}}>
