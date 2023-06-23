@@ -4,6 +4,7 @@ import { CiShare1 } from 'react-icons/ci'
 export default function Output({data, dark}) {
     const [repos, setRepos] = useState(null)  
     const [slicedText, setSlicedText] = useState('')
+    const [filterd, setFilterd] = useState(false)
 
     useEffect(() => {
       if(data != null){
@@ -15,7 +16,9 @@ export default function Output({data, dark}) {
           setSlicedText(data.created_at.slice(0, 10))
       }
     }, [data])
-
+  const onSearch = (e) => {
+    setFilterd(() => repos.filter(repo => repo.name.toLowerCase().includes(e.target.value.toLowerCase())))
+  }
   return (
     <>
        {data && <div className='Output'>
@@ -29,9 +32,10 @@ export default function Output({data, dark}) {
               <div>Following: {data !== null && data.following }</div>
             </div>
           </div>
-        {data.public_repos !== 0 && <div className="repos">
+          <input className='searchInput' placeholder='Search repository' type="text" onChange={e => onSearch(e)} />
+        { data.public_repos !== 0 && <div className="repos">
           <ul>
-          {repos && repos.map((repo, index) => {
+          {repos && (!filterd ? repos : filterd).map((repo, index) => {
               return <li key={index}>{index + 1}. {repo.name}<a href={repo.clone_url}><CiShare1 color={dark ? 'white' : 'black'} /></a></li>    
             })}
           </ul>
